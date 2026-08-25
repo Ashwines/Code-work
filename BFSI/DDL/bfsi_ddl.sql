@@ -1,5 +1,5 @@
-create database stgdb_ashwines;
-CREATE TABLE stgdb_ashwines.stg_accounts (
+create database stgdb;
+CREATE TABLE stgdb.stg_accounts (
     AccountID VARCHAR(50),
     AccountType VARCHAR(50),
     Balance DECIMAL(18,2),
@@ -11,7 +11,7 @@ CREATE TABLE stgdb_ashwines.stg_accounts (
     ODLimit DECIMAL(18,2)
 );
 
-CREATE TABLE stgdb_ashwines.stg_transactions (
+CREATE TABLE stgdb.stg_transactions (
     AccountID VARCHAR(50),
     Amount DECIMAL(18,2),
     Currency VARCHAR(10),
@@ -24,7 +24,7 @@ CREATE TABLE stgdb_ashwines.stg_transactions (
     TransactionID VARCHAR(50),
     TransactionType VARCHAR(50));
 
-CREATE TABLE stgdb_ashwines.stg_payments (
+CREATE TABLE stgdb.stg_payments (
     Amount DECIMAL(18,2),
     AuditTrial TEXT,
     ClearingSystem VARCHAR(50),
@@ -41,7 +41,7 @@ CREATE TABLE stgdb_ashwines.stg_payments (
     ToAccountID VARCHAR(50)	
 );
 
-CREATE TABLE stgdb_ashwines.stg_creditcard (
+CREATE TABLE stgdb.stg_creditcard (
     Balance DECIMAL(18,2),
     BillCycle VARCHAR(20),
     CardID VARCHAR(50),
@@ -55,7 +55,7 @@ CREATE TABLE stgdb_ashwines.stg_creditcard (
     Status VARCHAR(20)
 );
 
-CREATE TABLE stgdb_ashwines.stg_loans (
+CREATE TABLE stgdb.stg_loans (
     Amount DECIMAL(18,2),
     Collateral VARCHAR(100),
     CustomerID VARCHAR(50),
@@ -68,7 +68,7 @@ CREATE TABLE stgdb_ashwines.stg_loans (
     Status VARCHAR(20)
 );
 
-CREATE TABLE stgdb_ashwines.stg_cust_profile (
+CREATE TABLE stgdb.stg_cust_profile (
     Address TEXT,
     BranchID VARCHAR(50),
     CustomerID VARCHAR(50),
@@ -80,7 +80,7 @@ CREATE TABLE stgdb_ashwines.stg_cust_profile (
 );
 
 
-CREATE TABLE stgdb_ashwines.stg_branches (
+CREATE TABLE stgdb.stg_branches (
     Address TEXT,
     BranchID VARCHAR(50),
     BranchName VARCHAR(100),
@@ -88,7 +88,7 @@ CREATE TABLE stgdb_ashwines.stg_branches (
     State VARCHAR(100),
     Zipcode VARCHAR(20));
 
-CREATE TABLE stgdb_ashwines.stg_employees (
+CREATE TABLE stgdb.stg_employees (
     BranchID VARCHAR(50),
     EmployeeID VARCHAR(50),
     FirstName VARCHAR(100),
@@ -97,9 +97,9 @@ CREATE TABLE stgdb_ashwines.stg_employees (
     ManagerID VARCHAR(50),
     Position VARCHAR(100));
 	
-create database odsdb_ashwines;
+create database odsdb;
 
-CREATE TABLE odsdb_ashwines.ods_accounts (
+CREATE TABLE odsdb.ods_accounts (
     AccountID VARCHAR(50),
     AccountType VARCHAR(50),
     Balance DECIMAL(18,2),
@@ -113,7 +113,7 @@ CREATE TABLE odsdb_ashwines.ods_accounts (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_transactions (
+CREATE TABLE odsdb.ods_transactions (
     AccountID VARCHAR(50),
     Amount DECIMAL(18,2),
     Currency VARCHAR(10),
@@ -129,7 +129,7 @@ CREATE TABLE odsdb_ashwines.ods_transactions (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_payments (
+CREATE TABLE odsdb.ods_payments (
     Amount DECIMAL(18,2),
     AuditTrial TEXT,
     ClearingSystem VARCHAR(50),
@@ -148,7 +148,7 @@ CREATE TABLE odsdb_ashwines.ods_payments (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_creditcard (
+CREATE TABLE odsdb.ods_creditcard (
     Balance DECIMAL(18,2),
     BillCycle VARCHAR(20),
     CardID VARCHAR(50),
@@ -164,7 +164,7 @@ CREATE TABLE odsdb_ashwines.ods_creditcard (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_loans (
+CREATE TABLE odsdb.ods_loans (
     Amount DECIMAL(18,2),
     Collateral VARCHAR(100),
     CustomerID VARCHAR(50),
@@ -179,7 +179,7 @@ CREATE TABLE odsdb_ashwines.ods_loans (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_cust_profile (
+CREATE TABLE odsdb.ods_cust_profile (
     Address TEXT,
     BranchID VARCHAR(50),
     CustomerID VARCHAR(50),
@@ -192,7 +192,7 @@ CREATE TABLE odsdb_ashwines.ods_cust_profile (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_branches (
+CREATE TABLE odsdb.ods_branches (
     Address TEXT,
     BranchID VARCHAR(50),
     BranchName VARCHAR(100),
@@ -203,7 +203,7 @@ CREATE TABLE odsdb_ashwines.ods_branches (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE odsdb_ashwines.ods_employees (
+CREATE TABLE odsdb.ods_employees (
     BranchID VARCHAR(50),
     EmployeeID VARCHAR(50),
     FirstName VARCHAR(100),
@@ -216,8 +216,8 @@ CREATE TABLE odsdb_ashwines.ods_employees (
 );
 
 
-create database edwdb_ashwines;
-CREATE TABLE edwdb_ashwines.dim_customers (
+create database edwdb;
+CREATE TABLE edwdb.dim_customers (
     CustomerID VARCHAR(50),
     FirstName VARCHAR(100),
     LastName VARCHAR(100),
@@ -231,7 +231,7 @@ CREATE TABLE edwdb_ashwines.dim_customers (
     effective_date DATE
 );
 
-CREATE TABLE edwdb_ashwines.dim_branches (
+CREATE TABLE edwdb.dim_branches (
     Address TEXT,
     BranchID VARCHAR(50),
     BranchName VARCHAR(100),
@@ -245,7 +245,7 @@ CREATE TABLE edwdb_ashwines.dim_branches (
     is_current TINYINT
 );
 
-CREATE TABLE edwdb_ashwines.dim_employees (
+CREATE TABLE edwdb.dim_employees (
     BranchID VARCHAR(50),
     EmployeeID VARCHAR(50),
     FirstName VARCHAR(100),
@@ -257,7 +257,7 @@ CREATE TABLE edwdb_ashwines.dim_employees (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE edwdb_ashwines.dim_loans (
+CREATE TABLE edwdb.dim_loans (
     Amount DECIMAL(18,2),
     Collateral VARCHAR(100),
     CustomerID VARCHAR(50),
@@ -272,7 +272,7 @@ CREATE TABLE edwdb_ashwines.dim_loans (
     load_ts TIMESTAMP
 );
 
-CREATE TABLE edwdb_ashwines.fact_loans (
+CREATE TABLE edwdb.fact_loans (
     LoanID bigint NOT NULL,
     CustomerID INT NOT NULL,
     BranchID INT NOT NULL,
@@ -289,8 +289,46 @@ CREATE TABLE edwdb_ashwines.fact_loans (
     load_dt DATE NOT NULL,
     load_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-create database trans_mart_ashwines;
-CREATE TABLE trans_mart_ashwines.fact_transactions (
+CREATE DATABASE loans_mart;
+
+CREATE TABLE loans_mart.fact_high_value_loans (
+    LoanID                  INT,
+    CustomerID              INT,
+    BranchID                INT,
+    Amount                  DECIMAL(18,2),
+    InterestRate            DECIMAL(10,2),
+    StartDate               DATE,
+    EndDate                 DATE,
+    PaymentFrequency        VARCHAR(50),
+    Status                  VARCHAR(50),
+    OutstandingBalance      DECIMAL(18,2),
+    LoanDurationMonths      INT,
+    RiskIndicator            VARCHAR(20),
+    HighValueFlag           CHAR(1),
+    LoanCategory             VARCHAR(30),
+    load_dt                 DATE,
+    load_ts                 TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS edwdb.fact_loan_summary (
+    BranchID                INT,
+    RiskIndicator           VARCHAR(20),
+    LoanCount               INT,
+    TotalLoanAmount         DECIMAL(18,2),
+    AverageLoanAmount       DECIMAL(18,2),
+    MaximumLoanAmount       DECIMAL(18,2),
+    MinimumLoanAmount       DECIMAL(18,2),
+    HighValueLoanCount      INT,
+    HighValueLoanAmount     DECIMAL(18,2),
+    ActiveLoanCount         INT,
+    ClosedLoanCount         INT,
+    AverageInterestRate     DECIMAL(10,2),
+    AverageLoanDurationMonths DECIMAL(10,2),
+    load_dt                 DATE,
+    load_ts                 TIMESTAMP);
+
+create database trans_mart;
+CREATE TABLE trans_mart.fact_transactions (
     AccountID VARCHAR(50),
     Amount DECIMAL(18,2),
     Currency VARCHAR(10),
@@ -307,8 +345,20 @@ CREATE TABLE trans_mart_ashwines.fact_transactions (
     transaction_flag VARCHAR(10)
 );
 
-create database payment_mart_ashwines;
-CREATE TABLE payment_mart_ashwines.fact_payments (
+CREATE TABLE trans_mart.agg_branch_trans_summary (
+    BranchID                INT NOT NULL,
+    BranchName              VARCHAR(100),
+
+    Total_Customers        INT DEFAULT 0,
+    Total_Accounts         INT DEFAULT 0,
+    Total_Balance          DECIMAL(18,2) DEFAULT 0.00,
+    Total_Transactions     DECIMAL(18,2) DEFAULT 0.00,
+
+    load_dt                DATE,
+    load_ts                TIMESTAMP);
+
+create database payment_mart;
+CREATE TABLE payment_mart.fact_payments (
     Amount DECIMAL(18,2),
     AuditTrial TEXT,
     ClearingSystem VARCHAR(50),
@@ -328,8 +378,8 @@ CREATE TABLE payment_mart_ashwines.fact_payments (
     AmountInBaseCurrency DECIMAL(18,2)
 );
 
-create database cc_mart_ashwines;
-CREATE TABLE cc_mart_ashwines.fact_creditcard (
+create database cc_mart;
+CREATE TABLE cc_mart.fact_creditcard (
     fact_creditcard_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     customerid INT,
     loanid BIGINT,

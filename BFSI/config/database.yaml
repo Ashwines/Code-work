@@ -1,0 +1,33 @@
+# Database connection settings
+# MySQL is the target; SQLite is used for local development/testing.
+
+# Which database backend the pipeline should use by default
+default_db: mysql
+
+mysql:
+  driver: mysql+pymysql
+  host: 34.174.250.128
+  port: 3306
+  user: inceptez
+  password: "Inceptez@123"
+  databases:
+    staging: stgdb_ashwines
+    ods:     odsdb_ashwines
+    edw:     edwdb_ashwines
+    trans_mart: trans_mart_ashwines
+    payment_mart: payment_mart_ashwines
+    cc_mart: cc_mart_ashwines
+
+sqlite:
+  # Single local SQLite file for dev/test; schemas are separated by table-name prefixes.
+  url: sqlite:///data/bfsi_dw.db
+
+# Table-name prefixes for SQLite (simulates separate MySQL databases)
+prefixes:
+  staging: ""
+  ods:     "ods_"
+  edw_dim: ""
+  edw_fact: "edw_fact_"
+  trans_mart: "tm_fact_"
+  payment_mart: "pm_fact_"
+  cc_mart: "cc_fact_"

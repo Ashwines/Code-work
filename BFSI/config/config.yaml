@@ -1,0 +1,32 @@
+# BFSI Data Engineering Project Configuration
+project:
+  name: BFSI Data Warehouse
+  environment: dev
+  description: >
+    Banking Financial Services & Insurance data warehouse pipeline.
+    Architecture: Staging -> ODS -> EDW -> Data Marts.
+
+paths:
+  raw_data: data/raw
+  staging_output: data/staging
+  edw_output: data/edw
+  ddl_dir: ddl
+  docs_dir: docs
+
+# Source CSV files mapped to staging table names
+sources:
+  accounts:    { file: accounts.csv,    table: stg_accounts }
+  transactions: { file: transactions.csv, table: stg_transactions }
+  payments:    { file: payments.csv,    table: stg_payments }
+  creditcard:  { file: creditcard.csv,  table: stg_creditcard }
+  loans:       { file: loans.csv,       table: stg_loans }
+  customer:    { file: cust.csv,        table: stg_cust_profile }
+  branches:    { file: branches.csv,     table: stg_branches }
+  employees:   { file: employee.csv,     table: stg_employees }
+
+# Layers executed in order
+layers:
+  - staging
+  - ods
+  - edw
+  - marts

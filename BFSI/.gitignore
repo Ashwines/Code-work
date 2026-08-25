@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Data / databases
+*.db
+*.sqlite
+*.sqlite3
+data/staging/*
+!data/staging/.gitkeep
+data/edw/*
+!data/edw/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.*
+!*.env.example

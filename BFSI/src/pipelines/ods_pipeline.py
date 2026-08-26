@@ -27,6 +27,7 @@ logger = setup_logger("ods_pipeline", log_file="ods.log")
 ODS_INSERT_SQL = [
     # stg_accounts → ods_accounts
     # trim() on AccountType, upper() on Currency, filter nulls
+    "TRUNCATE TABLE  odsdb_ashwines.ods_accounts",
     """
     INSERT INTO odsdb_ashwines.ods_accounts
     SELECT AccountID,
@@ -44,6 +45,7 @@ ODS_INSERT_SQL = [
     WHERE AccountID IS NOT NULL;
     """,
     # stg_transactions → ods_transactions (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_transactions",
     """
     INSERT INTO odsdb_ashwines.ods_transactions
     SELECT t.*,
@@ -52,6 +54,7 @@ ODS_INSERT_SQL = [
     FROM stgdb_ashwines.stg_transactions t;
     """,
     # stg_payments → ods_payments (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_payments",
     """
     INSERT INTO odsdb_ashwines.ods_payments
     SELECT p.*,
@@ -60,6 +63,7 @@ ODS_INSERT_SQL = [
     FROM stgdb_ashwines.stg_payments p;
     """,
     # stg_creditcard → ods_creditcard (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_creditcard",
     """
     INSERT INTO odsdb_ashwines.ods_creditcard
     SELECT c.*,
@@ -68,6 +72,7 @@ ODS_INSERT_SQL = [
     FROM stgdb_ashwines.stg_creditcard c;
     """,
     # stg_loans → ods_loans (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_loans",
     """
     INSERT INTO odsdb_ashwines.ods_loans
     SELECT l.*,
@@ -77,6 +82,7 @@ ODS_INSERT_SQL = [
     """,
     # stg_cust_profile → ods_cust_profile
     # trim() on FirstName/LastName, substr() on PhoneNumber
+    "TRUNCATE TABLE  odsdb_ashwines.ods_cust_profile",
     """
     INSERT INTO odsdb_ashwines.ods_cust_profile
     SELECT Address,
@@ -92,6 +98,7 @@ ODS_INSERT_SQL = [
     FROM stgdb_ashwines.stg_cust_profile cp;
     """,
     # stg_branches → ods_branches (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_branches",
     """
     INSERT INTO odsdb_ashwines.ods_branches
     SELECT b.*,
@@ -100,6 +107,7 @@ ODS_INSERT_SQL = [
     FROM stgdb_ashwines.stg_branches b;
     """,
     # stg_employees → ods_employees (exact copy + audit cols)
+    "TRUNCATE TABLE  odsdb_ashwines.ods_employees",
     """
     INSERT INTO odsdb_ashwines.ods_employees
     SELECT e.*,
@@ -125,9 +133,9 @@ def run_ods():
     with engine.begin() as conn:
         for i, sql in enumerate(ODS_INSERT_SQL, 1):
             conn.execute(text(sql))
-            logger.info("  -> ODS INSERT #%d executed", i)
+            logger.info("  -> ODS step #%d executed", i)
 
-    logger.info("ODS ingestion complete — 8 tables loaded")
+    logger.info("ODS ingestion complete — 8 tables TRUNCATE TABLEd and loaded")
 
 
 if __name__ == "__main__":

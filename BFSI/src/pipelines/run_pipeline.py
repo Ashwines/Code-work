@@ -20,8 +20,8 @@ logger = setup_logger("bfsi_pipeline", log_file="pipeline.log")
 PIPELINE_STEPS = [
     ("staging", "staging_pipeline", "run_staging"),
     ("ods",     "ods_pipeline",    "run_ods"),
-    # ("edw",     "edw_pipeline",    "run_edw"),
-    # ("marts",   "mart_pipeline",   "run_marts"),
+    ("edw",     "edw_pipeline",    "run_edw"),
+    ("marts",   "mart_pipeline",   "run_marts"),
 ]
 
 

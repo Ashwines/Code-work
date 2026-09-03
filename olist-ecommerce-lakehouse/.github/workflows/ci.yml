@@ -1,0 +1,33 @@
+name: CI - Olist Lakehouse
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'olist-ecommerce-lakehouse/**'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - 'olist-ecommerce-lakehouse/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate docker-compose.yml
+        run: |
+          cd olist-ecommerce-lakehouse
+          docker compose config
+
+      - name: Check required files exist
+        run: |
+          cd olist-ecommerce-lakehouse
+          test -f docker-compose.yml
+          test -f .env.example
+          test -f .gitignore
+          test -f README.md
+          echo "All required files present"

@@ -23,11 +23,9 @@ OLIST_TABLES = [
 ]
 
 
-def ingest_table(spark: SparkSession, table_name: str) -> None:
-    """Read one CSV from landing and write it to raw as Delta."""
-
-    landing_path = f"/opt/airflow/data/landing/{table_name}.csv"
-    raw_path = f"/opt/airflow/data/raw/{table_name}"   # local path instead of s3a
+def ingest_table(spark, table_name: str) -> None:
+    landing_path = f"s3a://landing/{table_name}.csv"
+    raw_path = f"s3a://raw/{table_name}"
 
     print(f"Ingesting: {table_name}")
 
@@ -38,7 +36,6 @@ def ingest_table(spark: SparkSession, table_name: str) -> None:
         .csv(landing_path)
     )
 
-    # Add metadata columns (professional practice)
     from pyspark.sql import functions as F
     df = (
         df
@@ -47,10 +44,12 @@ def ingest_table(spark: SparkSession, table_name: str) -> None:
     )
 
     (
-    df.write
-    .mode("overwrite")
-    .parquet(raw_path)
-)
+        df.write
+        .format("delta")
+        .mode("overwrite")
+        .option("overwriteSchema", "true")
+        .save(raw_path)
+    )
 
     print(f"Successfully written to: {raw_path}")
     print(f"Row count: {df.count()}")

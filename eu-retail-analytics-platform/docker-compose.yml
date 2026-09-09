@@ -1,45 +1,45 @@
-# ============================================================
-# Airflow 3.3.1 Config Anchor
-# ============================================================
+# EU Retail Analytics Platform — full compose (Phase A fixed)
+# Airflow 3.3.1 + Postgres + MinIO + ClickHouse + Hasura + Superset
+
 x-airflow-common: &airflow-common
-  image: olist-airflow:3.3.1
+  build:
+    context: .
+    dockerfile: Dockerfile.airflow
+  image: eu-retail-airflow:3.3.1
   environment: &airflow-common-env
     JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution/"
     AIRFLOW__API_AUTH__JWT_SECRET: "retail-lakehouse-super-secret-key-change-me"
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-    AIRFLOW__CORE__FERNET_KEY: ''
-    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
-    
-    # ===== Airflow 3 Authentication (SimpleAuthManager) =====
+    AIRFLOW__CORE__FERNET_KEY: ""
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
     AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
-    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: 'True'
-    
-    # MinIO / Lake S3 Credentials
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "True"
     AWS_ACCESS_KEY_ID: minioadmin
     AWS_SECRET_ACCESS_KEY: minioadmin
     AWS_ENDPOINT_URL: http://minio:9000
-    
-    # Retail Database Source Env
     SOURCE_DB_HOST: postgres
-    SOURCE_DB_PORT: 5432
+    SOURCE_DB_PORT: "5432"
     SOURCE_DB_NAME: retail_source
     SOURCE_DB_USER: retail
     SOURCE_DB_PASSWORD: retail
+    CLICKHOUSE_HOST: clickhouse
+    CLICKHOUSE_HTTP_PORT: "8123"
+    CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+    CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./src:/opt/airflow/src
     - ./logs:/opt/airflow/logs
-    - ./config:/opt/airflow/config
     - ./data:/opt/airflow/data
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     postgres:
       condition: service_healthy
     minio:
-      condition: service_healthy
+      condition: service_started
 
 services:
 
@@ -51,7 +51,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-retail}
       POSTGRES_DB: ${POSTGRES_DB:-retail_source}
     ports:
-      - "5433:5432"   # 5433 to avoid clash with Olist Airflow Postgres on 5432
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/postgres/init:/docker-entrypoint-initdb.d
@@ -70,8 +70,8 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
     ports:
-      - "9010:9000"   # API (avoid clash with Olist 9000)
-      - "9011:9001"   # Console
+      - "9010:9000"
+      - "9011:9001"
     volumes:
       - minio_data:/data
     healthcheck:
@@ -94,7 +94,7 @@ services:
       mc mb local/raw --ignore-existing;
       mc mb local/refined --ignore-existing;
       mc mb local/marts --ignore-existing;
-      echo 'MinIO buckets ready';
+      echo MinIO buckets ready;
       exit 0;
       "
     environment:
@@ -110,8 +110,8 @@ services:
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse}
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     ports:
-      - "8123:8123"   # HTTP
-      - "9009:9000"   # Native (9009 host to avoid clash)
+      - "8123:8123"
+      - "9009:9000"
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - ./infra/clickhouse/init:/docker-entrypoint-initdb.d
@@ -125,7 +125,7 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
-  # --- Caching Layer for Superset ---
+
   redis:
     image: redis:7-alpine
     container_name: eu_redis
@@ -133,8 +133,6 @@ services:
     ports:
       - "6379:6379"
 
-  # --- Hasura GraphQL Engine ---
-  # --- Hasura GraphQL Engine ---
   hasura:
     image: hasura/graphql-engine:v2.48.0
     container_name: eu_hasura
@@ -142,17 +140,15 @@ services:
     ports:
       - "8085:8080"
     environment:
-      # Connects to the internal container network on port 5432 using your configured credentials
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${POSTGRES_USER:-retail}:${POSTGRES_PASSWORD:-retail}@postgres:5432/${POSTGRES_DB:-retail_source}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_ADMIN_SECRET: "adminsecret"
-      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET:-adminsecret}
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
     depends_on:
       postgres:
         condition: service_healthy
 
-  # --- Apache Superset Initialization ---
   superset-init:
     image: apache/superset:latest
     container_name: eu_superset_init
@@ -166,7 +162,7 @@ services:
       "
     environment:
       SUPERSET_CONFIG_PATH: /app/superset_config.py
-      SUPERSET_SECRET_KEY: "super_secret_retail_key_change_in_prod"
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-super_secret_retail_key_change_in_prod}
       SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://${POSTGRES_USER:-retail}:${POSTGRES_PASSWORD:-retail}@postgres:5432/superset_metadata
     volumes:
       - ./superset_config.py:/app/superset_config.py
@@ -176,7 +172,6 @@ services:
       redis:
         condition: service_started
 
-  # --- Apache Superset App ---
   superset:
     image: apache/superset:latest
     container_name: eu_superset
@@ -191,7 +186,7 @@ services:
       - "8088:8088"
     environment:
       SUPERSET_CONFIG_PATH: /app/superset_config.py
-      SUPERSET_SECRET_KEY: "super_secret_retail_key_change_in_prod"
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-super_secret_retail_key_change_in_prod}
       SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://${POSTGRES_USER:-retail}:${POSTGRES_PASSWORD:-retail}@postgres:5432/superset_metadata
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -200,7 +195,7 @@ services:
     depends_on:
       superset-init:
         condition: service_completed_successfully
-  # --- Synthetic Data Seeder (Phase 2) ---
+
   data-seeder:
     build:
       context: ./data_generator
@@ -216,7 +211,7 @@ services:
       postgres:
         condition: service_healthy
     restart: "no"
-  # --- Airflow 3 Database Migrations ---
+
   airflow-init:
     <<: *airflow-common
     container_name: eu_airflow_init
@@ -231,7 +226,6 @@ services:
     user: "0:0"
     restart: "no"
 
-  # --- Airflow 3 API Server (FastAPI UI & API) ---
   airflow-api-server:
     <<: *airflow-common
     container_name: eu_airflow_api_server
@@ -243,7 +237,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-  # --- Airflow 3 Scheduler ---
   airflow-scheduler:
     <<: *airflow-common
     container_name: eu_airflow_scheduler
@@ -253,7 +246,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-  # --- Airflow 3 DAG Processor ---
   airflow-dag-processor:
     <<: *airflow-common
     container_name: eu_airflow_dag_processor

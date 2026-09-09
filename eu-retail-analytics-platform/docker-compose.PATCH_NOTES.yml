@@ -1,0 +1,30 @@
+# ============================================================
+# PATCH NOTES — merge into your existing docker-compose.yml
+# Do not replace blindly if you customized further.
+# ============================================================
+#
+# 1) Under x-airflow-common:
+#
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.airflow
+#    image: eu-retail-airflow:3.3.1
+#
+#    (remove: image: olist-airflow:3.3.1)
+#
+# 2) Add to airflow-common-env:
+#
+#    CLICKHOUSE_HOST: clickhouse
+#    CLICKHOUSE_HTTP_PORT: "8123"
+#    CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+#    CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse}
+#
+# 3) Ensure postgres volume mounts:
+#      - ./infra/postgres/init:/docker-entrypoint-initdb.d
+#
+# 4) Airflow SQLAlchemy URL stays:
+#      postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+#    after 00_databases / manual CREATE DATABASE airflow
+#
+# 5) Superset SQLALCHEMY stays:
+#      postgresql+psycopg2://retail:retail@postgres:5432/superset_metadata

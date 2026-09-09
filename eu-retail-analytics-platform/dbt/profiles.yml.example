@@ -1,0 +1,11 @@
+eu_retail_analytics:
+  target: clickhouse
+  outputs:
+    clickhouse:
+      type: clickhouse
+      host: localhost
+      port: 8123
+      user: default
+      password: clickhouse
+      schema: analytics_marts
+      secure: false

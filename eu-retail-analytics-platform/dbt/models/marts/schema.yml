@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: fct_daily_sales
+    description: "Order-line grain sales fact (built in ClickHouse by pipeline; dbt can replace later)"
+    columns:
+      - name: order_item_id
+        tests: [not_null]
+      - name: order_id
+        tests: [not_null]

@@ -1,0 +1,235 @@
+table_name: v_retail_executive_sales
+main_dttm_col: order_date
+currency_code_column: null
+description: null
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: null
+schema: ''
+sql: "SELECT \r\n    f.order_id,\r\n    f.order_date,\r\n    f.order_status,\r\n \
+  \   f.currency_code,\r\n    f.quantity,\r\n    f.unit_price,\r\n    f.line_total\
+  \ AS revenue_eur,\r\n    f.payment_method,\r\n    p.product_name,\r\n    p.category\
+  \ AS product_category,\r\n    s.store_name,\r\n    s.city AS store_city,\r\n   \
+  \ s.country_code AS store_country,\r\n    c.full_name AS customer_name,\r\n    c.country_code\
+  \ AS customer_country\r\nFROM analytics_marts.fct_daily_sales AS f\r\nINNER JOIN\
+  \ analytics_marts.dim_products AS p ON f.product_id = p.product_id\r\nINNER JOIN\
+  \ analytics_marts.dim_stores AS s ON f.store_id = s.store_id\r\nINNER JOIN analytics_marts.dim_customers\
+  \ AS c ON f.customer_id = c.customer_id;"
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: 10ba2ff3-e0ec-4fe1-93f6-336087e4814e
+metrics:
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra: null
+  warning_text: null
+columns:
+- column_name: f.unit_price
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(Float64)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: quantity
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(Int32)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: revenue_eur
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(Float64)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: order_date
+  verbose_name: null
+  is_dttm: true
+  is_active: true
+  type: Nullable(Date)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: product_category
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: product_name
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: customer_name
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: payment_method
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: order_status
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: store_name
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: currency_code
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: customer_country
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: store_city
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: store_country
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Nullable(String)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+- column_name: order_id
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: Int64
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: null
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra: null
+version: 1.0.0
+database_uuid: 0e7d9467-fc15-49bf-b9d7-ae56ba7c1f2b

@@ -1,0 +1,140 @@
+slice_name: 'KPI: Total Revenue & Orders'
+description: null
+certified_by: null
+certification_details: null
+viz_type: big_number
+params:
+  datasource: 2__table
+  viz_type: big_number
+  slice_id: 1
+  matrixify_enable: false
+  matrixify_mode_columns: disabled
+  matrixify_dimension_selection_mode_columns: members
+  matrixify_dimension_columns:
+    dimension: ''
+    values: []
+  matrixify_topn_value_columns: 10
+  matrixify_all_sort_by_columns: a_to_z
+  matrixify_topn_order_columns: true
+  matrixify_show_column_headers: true
+  matrixify_fit_columns_dynamically: true
+  matrixify_mode_rows: disabled
+  matrixify_dimension_selection_mode_rows: members
+  matrixify_dimension_rows:
+    dimension: ''
+    values: []
+  matrixify_topn_value_rows: 10
+  matrixify_all_sort_by_rows: a_to_z
+  matrixify_topn_order_rows: true
+  matrixify_show_row_labels: true
+  matrixify_row_height: 300
+  matrixify_charts_per_row: 3
+  matrixify_cell_title_template: ''
+  x_axis: order_date
+  time_grain_sqla: P1M
+  aggregation: sum
+  metric:
+    aggregate: SUM
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: revenue_eur
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 21
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: column
+      type_generic: null
+      uuid: f1e4953b-a5ac-4f78-9104-0021ddf26793
+      verbose_name: null
+      warning_markdown: null
+    datasourceWarning: false
+    expressionType: SIMPLE
+    hasCustomLabel: false
+    label: SUM(revenue_eur)
+    optionName: metric_g566q59mtzj_yastnkvgp1d
+    sqlExpression: null
+  adhoc_filters:
+  - expressionType: SIMPLE
+    subject: order_date
+    operator: TEMPORAL_RANGE
+    comparator: ' : '
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_5ng0w8gm485_415hgyir3c8
+  - expressionType: SIMPLE
+    subject: store_country
+    operator: IN
+    operatorId: IN
+    comparator:
+    - AE
+    - GB
+    - DE
+    - FR
+    - NL
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_9e4w36jrqj7_1ftrduoelzm
+  - expressionType: SIMPLE
+    subject: product_category
+    operator: IN
+    operatorId: IN
+    comparator:
+    - Electronics
+    - Apparel
+    - Home & Kitchen
+    - Beauty & Care
+    - Sports & Outdoors
+    clause: WHERE
+    sqlExpression: null
+    isExtra: false
+    isNew: false
+    datasourceWarning: false
+    filterOptionName: filter_3fwfjkzszu5_jnyxtbecjk
+  show_timestamp: false
+  show_trend_line: true
+  start_y_axis_at_zero: true
+  color_picker:
+    a: 1
+    b: 135
+    g: 122
+    r: 0
+  header_font_size: 0.4
+  subheader_font_size: 0.15
+  subtitle_font_size: 0.15
+  show_metric_name: false
+  metric_name_font_size: 0.15
+  show_x_axis: false
+  show_x_axis_min_max_labels: false
+  show_y_axis: false
+  show_y_axis_min_max_labels: false
+  y_axis_format: SMART_NUMBER
+  currency_format:
+    symbol: EUR
+    symbolPosition: prefix
+  time_format: smart_date
+  force_timestamp_formatting: false
+  rolling_type: None
+  extra_form_data: {}
+  dashboards:
+  - 1
+query_context: '{"datasource":{"id":2,"type":"table"},"force":false,"queries":[{"filters":[{"col":"order_date","op":"TEMPORAL_RANGE","val":"
+  : "},{"col":"store_country","op":"IN","val":["AE","GB","DE","FR","NL"]},{"col":"product_category","op":"IN","val":["Electronics","Apparel","Home
+  & Kitchen","Beauty & Care","Sports & Outdoors"]}],"extras":{"time_grain_sqla":"P1M","having":"","where":""},"applied_time_extras":{},"columns":[{"timeGrain":"P1M","columnType":"BASE_AXIS","sqlExpression":"order_date","label":"order_date","expressionType":"SQL","isColumnReference":true}],"metrics":[{"aggregate":"SUM","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"revenue_eur","description":null,"expression":null,"filterable":true,"groupby":true,"id":21,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":null,"uuid":"f1e4953b-a5ac-4f78-9104-0021ddf26793","verbose_name":null,"warning_markdown":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"SUM(revenue_eur)","optionName":"metric_g566q59mtzj_yastnkvgp1d","sqlExpression":null}],"annotation_layers":[],"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"post_processing":[{"operation":"pivot","options":{"index":["order_date"],"columns":[],"aggregates":{"SUM(revenue_eur)":{"operator":"mean"}},"drop_missing_columns":true}},{"operation":"flatten"}]}],"form_data":{"datasource":"2__table","viz_type":"big_number","slice_id":1,"matrixify_enable":false,"matrixify_mode_columns":"disabled","matrixify_dimension_selection_mode_columns":"members","matrixify_dimension_columns":{"dimension":"","values":[]},"matrixify_topn_value_columns":10,"matrixify_all_sort_by_columns":"a_to_z","matrixify_topn_order_columns":true,"matrixify_show_column_headers":true,"matrixify_fit_columns_dynamically":true,"matrixify_mode_rows":"disabled","matrixify_dimension_selection_mode_rows":"members","matrixify_dimension_rows":{"dimension":"","values":[]},"matrixify_topn_value_rows":10,"matrixify_all_sort_by_rows":"a_to_z","matrixify_topn_order_rows":true,"matrixify_show_row_labels":true,"matrixify_row_height":300,"matrixify_charts_per_row":3,"matrixify_cell_title_template":"","x_axis":"order_date","time_grain_sqla":"P1M","aggregation":"sum","metric":{"aggregate":"SUM","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"revenue_eur","description":null,"expression":null,"filterable":true,"groupby":true,"id":21,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"column","type_generic":null,"uuid":"f1e4953b-a5ac-4f78-9104-0021ddf26793","verbose_name":null,"warning_markdown":null},"datasourceWarning":false,"expressionType":"SIMPLE","hasCustomLabel":false,"label":"SUM(revenue_eur)","optionName":"metric_g566q59mtzj_yastnkvgp1d","sqlExpression":null},"adhoc_filters":[{"expressionType":"SIMPLE","subject":"order_date","operator":"TEMPORAL_RANGE","comparator":"
+  : ","clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_5ng0w8gm485_415hgyir3c8"},{"expressionType":"SIMPLE","subject":"store_country","operator":"IN","operatorId":"IN","comparator":["AE","GB","DE","FR","NL"],"clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_9e4w36jrqj7_1ftrduoelzm"},{"expressionType":"SIMPLE","subject":"product_category","operator":"IN","operatorId":"IN","comparator":["Electronics","Apparel","Home
+  & Kitchen","Beauty & Care","Sports & Outdoors"],"clause":"WHERE","sqlExpression":null,"isExtra":false,"isNew":false,"datasourceWarning":false,"filterOptionName":"filter_3fwfjkzszu5_jnyxtbecjk"}],"show_timestamp":false,"show_trend_line":true,"start_y_axis_at_zero":true,"color_picker":{"a":1,"b":135,"g":122,"r":0},"header_font_size":0.4,"subheader_font_size":0.15,"subtitle_font_size":0.15,"show_metric_name":false,"metric_name_font_size":0.15,"show_x_axis":false,"show_x_axis_min_max_labels":false,"show_y_axis":false,"show_y_axis_min_max_labels":false,"y_axis_format":"SMART_NUMBER","currency_format":{"symbol":"EUR","symbolPosition":"prefix"},"time_format":"smart_date","force_timestamp_formatting":false,"rolling_type":"None","extra_form_data":{},"dashboards":[1],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: a431d8ad-d24c-4b35-912a-470cceee6c70
+version: 1.0.0
+dataset_uuid: 10ba2ff3-e0ec-4fe1-93f6-336087e4814e

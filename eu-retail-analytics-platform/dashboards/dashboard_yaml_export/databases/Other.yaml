@@ -1,0 +1,15 @@
+database_name: Other
+sqlalchemy_uri: clickhousedb://default:XXXXXXXXXX@clickhouse:8123/analytics_marts
+cache_timeout: null
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  allows_virtual_table_explore: true
+impersonate_user: false
+configuration_method: sqlalchemy_form
+uuid: 0e7d9467-fc15-49bf-b9d7-ae56ba7c1f2b
+version: 1.0.0

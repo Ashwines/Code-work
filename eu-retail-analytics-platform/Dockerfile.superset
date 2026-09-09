@@ -1,0 +1,9 @@
+FROM apache/superset:latest
+
+USER root
+
+# Install directly into the active Python runtime used by Superset
+RUN /app/.venv/bin/python -m ensurepip --upgrade || true && \
+    /app/.venv/bin/python -m pip install --no-cache-dir psycopg2-binary clickhouse-connect
+
+USER superset

@@ -1,0 +1,8 @@
+column_name,data_type,null_count,actual_count,unique_count,null_percentage
+BranchID,int64,0,3000,200,0.0
+EmployeeID,float64,7,3000,2993,0.23
+FirstName,str,0,3000,543,0.0
+Hiredate,str,0,3000,2061,0.0
+LastName,str,0,3000,801,0.0
+ManagerID,float64,1037,3000,829,34.57
+Position,str,0,3000,8,0.0

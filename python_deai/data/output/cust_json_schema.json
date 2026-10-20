@@ -1,0 +1,44 @@
+{
+  "dataset_business_purpose": "The dataset represents a master repository of customer profiles for a multi-branch business organization, capturing personal identification details, demographics, contact information, and branch affiliations for over 50,000 unique individuals.",
+  "recommended_target_table": "dim_customer",
+  "candidate_primary_key": "CustomerID",
+  "recommended_partition_column": "BranchID",
+  "business_meaning_of_every_column": {
+    "Address": "The primary residential or mailing street address associated with the customer profile.",
+    "BranchID": "The unique identifier representing the local branch or administrative office managing the customer.",
+    "CustomerID": "The unique enterprise identifier assigned to each individual customer record.",
+    "DateOfBirth": "The calendar date on which the customer was born, used for demographic analysis and age verification.",
+    "Email": "The primary electronic mail address used for digital communication with the customer.",
+    "FirstName": "The given or first name of the customer.",
+    "LastName": "The surname or last name of the customer.",
+    "PhoneNumber": "The primary telephone contact number associated with the customer, including potential extensions or international dialing codes."
+  },
+  "recommended_target_data_type": {
+    "Address": "VARCHAR",
+    "BranchID": "INTEGER",
+    "CustomerID": "INTEGER",
+    "DateOfBirth": "DATE",
+    "Email": "VARCHAR",
+    "FirstName": "VARCHAR",
+    "LastName": "VARCHAR",
+    "PhoneNumber": "VARCHAR"
+  },
+  "nullable_or_not": {
+    "Address": "NOT NULL",
+    "BranchID": "NOT NULL",
+    "CustomerID": "NOT NULL",
+    "DateOfBirth": "NOT NULL",
+    "Email": "NOT NULL",
+    "FirstName": "NOT NULL",
+    "LastName": "NOT NULL",
+    "PhoneNumber": "NOT NULL"
+  },
+  "possible_foreign_keys": [
+    "BranchID references dim_branch(BranchID) (uncertain: dimension table for branches is implied but not present in this dataset)"
+  ],
+  "data_quality_concerns": [
+    "Email uniqueness is violated; 45,768 unique emails across 50,001 records indicates potential duplicate customer entries, shared household emails, or data entry reuse.",
+    "PhoneNumber values contain highly variable formatting (e.g., standard dashes, parentheses, international prefixes like +1, and internal extensions like x06431), requiring standardization before loading.",
+    "DateOfBirth spans from 1935 to 2004, containing realistic age distributions, but requires validation to flag any outliers or future/impossible dates."
+  ]
+}

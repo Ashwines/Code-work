@@ -1,0 +1,33 @@
+{
+  "business_domain": "Banking and Financial Services",
+  "dataset_type": "Master Data (HR / Employee)",
+  "pii_columns": [
+    "FirstName",
+    "LastName"
+  ],
+  "sensitive_columns": [
+    "EmployeeID",
+    "ManagerID"
+  ],
+  "identifier_columns": [
+    "BranchID",
+    "EmployeeID",
+    "ManagerID"
+  ],
+  "business_measure_columns": [],
+  "date_columns": [
+    "Hiredate"
+  ],
+  "categorical_columns": [
+    "Position"
+  ],
+  "column_classifications": {
+    "BranchID": "Identifier column representing the unique code for a company branch or location.",
+    "EmployeeID": "Identifier column representing the unique identification number for an employee. It is classified as a sensitive column due to internal identification risk and exhibits missing values requiring data remediation.",
+    "FirstName": "PII column representing the first name of the employee, requiring privacy protection and access control.",
+    "Hiredate": "Date column representing the date the employee was hired, stored as a string and requiring standardization to a proper date format.",
+    "LastName": "PII column representing the last name of the employee, requiring privacy protection and access control.",
+    "ManagerID": "Identifier column representing the EmployeeID of the employee's manager. It establishes a hierarchical relationship and is classified as sensitive with significant missing values (34.57%) likely due to top-level executives lacking managers.",
+    "Position": "Categorical column representing the job title or role of the employee. It contains data quality issues such as typos and inconsistent naming conventions (e.g., 'Manager', 'Manger', 'Manage') requiring data cleansing and normalization."
+  }
+}

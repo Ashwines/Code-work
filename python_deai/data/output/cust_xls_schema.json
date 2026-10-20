@@ -1,0 +1,52 @@
+{
+  "business_purpose": "To maintain a master directory of customer profile information, including personal details, contact information, and associated branch assignments.",
+  "recommended_target_table": "dim_customer",
+  "candidate_primary_key": [
+    "CustomerID"
+  ],
+  "recommended_partition_column": null,
+  "column_meanings": {
+    "Address": "The residential or mailing street address of the customer.",
+    "BranchID": "The identifier of the bank branch or corporate branch associated with the customer.",
+    "CustomerID": "The unique system-generated identifier for each customer.",
+    "DateOfBirth": "The birth date of the customer.",
+    "Email": "The electronic mail address for customer communication.",
+    "FirstName": "The given name of the customer.",
+    "LastName": "The family name or surname of the customer.",
+    "PhoneNumber": "The primary contact telephone number for the customer."
+  },
+  "recommended_target_data_types": {
+    "Address": "VARCHAR(255)",
+    "BranchID": "INTEGER",
+    "CustomerID": "INTEGER",
+    "DateOfBirth": "DATE",
+    "Email": "VARCHAR(255)",
+    "FirstName": "VARCHAR(100)",
+    "LastName": "VARCHAR(100)",
+    "PhoneNumber": "VARCHAR(50)"
+  },
+  "nullability": {
+    "Address": "NOT NULL",
+    "BranchID": "NOT NULL",
+    "CustomerID": "NOT NULL",
+    "DateOfBirth": "NOT NULL",
+    "Email": "NOT NULL",
+    "FirstName": "NOT NULL",
+    "LastName": "NOT NULL",
+    "PhoneNumber": "NOT NULL"
+  },
+  "possible_foreign_keys": [
+    {
+      "column": "BranchID",
+      "referenced_table": "dim_branch",
+      "referenced_column": "BranchID",
+      "confidence": "uncertain",
+      "notes": "Implies a relationship to a branch dimension table, but the existence of the parent table cannot be confirmed from this dataset alone."
+    }
+  ],
+  "data_quality_concerns": [
+    "The Email column has 45,768 unique values out of 50,001 total records, indicating potential duplicate email entries or shared household emails.",
+    "Phone numbers contain mixed formatting (e.g., extensions like 'x06431', international prefixes like '001-' or '+1-', and various bracket/dash separators), requiring normalization.",
+    "DateOfBirth is stored as a string and needs explicit casting to a Date data type."
+  ]
+}

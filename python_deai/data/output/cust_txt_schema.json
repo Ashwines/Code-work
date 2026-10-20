@@ -1,0 +1,51 @@
+{
+  "dataset_business_purpose": "To store customer profile and demographic information, including personal details, contact information, and branch association, for a retail or financial institution.",
+  "recommended_target_table": "dim_customer",
+  "candidate_primary_key": [
+    "CustomerID"
+  ],
+  "recommended_partition_column": null,
+  "business_meaning_of_every_column": {
+    "Address": "The physical mailing address of the customer, often containing street, city, state, and zip code.",
+    "BranchID": "The identifier of the home branch or servicing branch associated with the customer.",
+    "CustomerID": "The unique system identifier for the customer.",
+    "DateOfBirth": "The birth date of the customer.",
+    "Email": "The electronic mail address for customer communication.",
+    "FirstName": "The given name of the customer.",
+    "LastName": "The family name or surname of the customer.",
+    "PhoneNumber": "The primary contact telephone number for the customer."
+  },
+  "recommended_target_data_type": {
+    "Address": "VARCHAR(255)",
+    "BranchID": "INTEGER",
+    "CustomerID": "INTEGER",
+    "DateOfBirth": "DATE",
+    "Email": "VARCHAR(255)",
+    "FirstName": "VARCHAR(100)",
+    "LastName": "VARCHAR(100)",
+    "PhoneNumber": "VARCHAR(50)"
+  },
+  "nullable_or_not": {
+    "Address": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "BranchID": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "CustomerID": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "DateOfBirth": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "Email": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "FirstName": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "LastName": "NOT NULL (based on 0 null_percentage across 50001 rows)",
+    "PhoneNumber": "NOT NULL (based on 0 null_percentage across 50001 rows)"
+  },
+  "possible_foreign_keys": [
+    {
+      "column": "BranchID",
+      "referenced_table": "dim_branch",
+      "referenced_column": "BranchID",
+      "confidence": "uncertain"
+    }
+  ],
+  "data_quality_concerns": [
+    "The dataset is delivered as a single unparsed CSV string column ('Address,BranchID,CustomerID,...') requiring proper splitting during ingestion.",
+    "Addresses contain embedded commas (e.g., '605 Christina Run Suite 478 North Jane, MH 48812'), which can cause parsing issues if delimiter-based parsing is not handled with proper quoting.",
+    "Phone numbers have mixed formatting (hyphens, parentheses, country codes, and extensions like '001-590-276-6495x6410'), requiring standardization."
+  ]
+}

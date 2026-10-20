@@ -1,0 +1,50 @@
+{
+  "dataset_business_purpose": "This dataset represents a master customer profile repository for an organization with multiple physical or regional branches. It captures essential demographic, contact, and branch-assignment information for over 50,000 customers, likely used for CRM, marketing, and branch-level reporting.",
+  "recommended_target_table": "dim_customer",
+  "candidate_primary_key": [
+    "CustomerID"
+  ],
+  "recommended_partition_column": null,
+  "business_meaning_of_every_column": {
+    "Address": "The physical mailing or residential address of the customer.",
+    "BranchID": "The identifier of the home branch or servicing branch associated with the customer.",
+    "CustomerID": "The unique system-generated identifier for the customer.",
+    "DateOfBirth": "The birth date of the customer, used for demographic analysis and age verification.",
+    "Email": "The primary electronic mail address for customer communication.",
+    "FirstName": "The given name of the customer.",
+    "LastName": "The family name or surname of the customer.",
+    "PhoneNumber": "The primary contact telephone number of the customer, which may include extensions or country codes."
+  },
+  "recommended_target_data_type": {
+    "Address": "VARCHAR(255)",
+    "BranchID": "INTEGER",
+    "CustomerID": "INTEGER",
+    "DateOfBirth": "DATE",
+    "Email": "VARCHAR(255)",
+    "FirstName": "VARCHAR(100)",
+    "LastName": "VARCHAR(100)",
+    "PhoneNumber": "VARCHAR(50)"
+  },
+  "nullable_or_not": {
+    "Address": "NOT NULL",
+    "BranchID": "NOT NULL",
+    "CustomerID": "NOT NULL",
+    "DateOfBirth": "NOT NULL",
+    "Email": "NOT NULL",
+    "FirstName": "NOT NULL",
+    "LastName": "NOT NULL",
+    "PhoneNumber": "NOT NULL"
+  },
+  "possible_foreign_keys": [
+    {
+      "column": "BranchID",
+      "referenced_table": "dim_branch (uncertain, based on external table convention)",
+      "referenced_column": "BranchID"
+    }
+  ],
+  "data_quality_concerns": [
+    "Email uniqueness: There are 45,768 unique emails across 50,001 records, indicating potential duplicate accounts, shared email addresses, or test data.",
+    "Phone number formatting: Phone numbers contain varied formatting patterns, international country codes (+1, 001), parentheses, periods, and extensions (e.g., x6410), requiring standardization during ingestion.",
+    "Date of Birth range: Birth dates range back to 1935, which should be validated against business rules for valid active customer age ranges."
+  ]
+}

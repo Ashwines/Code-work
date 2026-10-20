@@ -1,0 +1,23 @@
+{
+  "business_domain": "Customer Relationship Management (CRM) / Retail Banking",
+  "dataset_type": "Customer Master Data",
+  "pii_columns": [
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber"
+  ],
+  "sensitive_columns": [
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber"
+  ],
+  "identifier_columns": [
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber"
+  ],
+  "business_measure_columns": "unknown",
+  "date_columns": [
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber"
+  ],
+  "categorical_columns": [
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber"
+  ],
+  "column_explanations": {
+    "Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber": "The file has been ingested incorrectly as a single comma-delimited string containing multiple distinct logical attributes. Based on the header and sample records, this single column actually represents a concatenated string of structural, personal identifier, PII, date, and categorical fields (Address, BranchID, CustomerID, DateOfBirth, Email, FirstName, LastName, PhoneNumber). Because the entire file content is currently flattened into one string column, all semantic types are mapped to this single field until proper parsing is applied."
+  }
+}

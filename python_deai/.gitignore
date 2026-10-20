@@ -19,17 +19,6 @@ dist/
 venv/
 env/
 
-# Generated / transient pipeline artifacts
-data/output/
-data/error/
-data/processing/
-data/archive/
-
-# Local sample data dropped in for testing
-landing/*.csv
-landing/*.json
-landing/*.xlsx
-landing/*.txt
 
 # Editor / OS noise
 .vscode/

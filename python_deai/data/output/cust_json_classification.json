@@ -1,0 +1,35 @@
+{
+  "business_domain": "Banking and Financial Services",
+  "dataset_type": "Customer Master Dataset",
+  "pii_columns": [
+    "Address",
+    "Email",
+    "FirstName",
+    "LastName",
+    "PhoneNumber"
+  ],
+  "sensitive_columns": [
+    "DateOfBirth"
+  ],
+  "identifier_columns": [
+    "BranchID",
+    "CustomerID"
+  ],
+  "business_measure_columns": [],
+  "date_columns": [
+    "DateOfBirth"
+  ],
+  "categorical_columns": [
+    "BranchID"
+  ],
+  "column_classifications": {
+    "Address": "PII",
+    "BranchID": "Categorical and Identifier",
+    "CustomerID": "Identifier",
+    "DateOfBirth": "Sensitive and Date",
+    "Email": "PII",
+    "FirstName": "PII",
+    "LastName": "PII",
+    "PhoneNumber": "PII"
+  }
+}

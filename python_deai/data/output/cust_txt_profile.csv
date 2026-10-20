@@ -1,0 +1,2 @@
+column_name,data_type,null_count,actual_count,unique_count,null_percentage
+"Address,BranchID,CustomerID,DateOfBirth,Email,FirstName,LastName,PhoneNumber",str,0,50001,50001,0.0

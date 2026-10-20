@@ -1,4 +1,4 @@
-# EU Retail Analytics Platform
+,Z/ol# EU Retail Analytics Platform
 
 End-to-end **data platform** for multi-region retail analytics (UAE + Europe).
 

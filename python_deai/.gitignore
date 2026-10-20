@@ -1,0 +1,39 @@
+# ============================================================
+#  SECURITY: NEVER COMMIT REAL SECRETS / API KEYS
+# ============================================================
+# Actual environment files containing GEMINI_API_KEY (or any secret)
+# MUST stay local. Only the .env.example template may be committed.
+.env
+.env.*
+!.env.example
+.envrc
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Generated / transient pipeline artifacts
+data/output/
+data/error/
+data/processing/
+data/archive/
+
+# Local sample data dropped in for testing
+landing/*.csv
+landing/*.json
+landing/*.xlsx
+landing/*.txt
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

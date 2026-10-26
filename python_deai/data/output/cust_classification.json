@@ -1,59 +1,24 @@
 {
-  "business_domain": "Banking / Financial Services",
-  "dataset_type": "Customer Master Dataset",
+  "business_domain": "Customer Relationship Management",
+  "dataset_type": "Master Data",
   "pii_columns": [
-    "Address",
-    "Email",
-    "FirstName",
-    "LastName",
-    "PhoneNumber"
+    "name"
   ],
-  "sensitive_columns": [
-    "DateOfBirth"
-  ],
+  "sensitive_columns": [],
   "identifier_columns": [
-    "BranchID",
-    "CustomerID"
+    "cust_id"
   ],
   "business_measure_columns": [],
-  "date_columns": [
-    "DateOfBirth"
-  ],
-  "categorical_columns": [
-    "BranchID"
-  ],
+  "date_columns": [],
+  "categorical_columns": [],
   "column_classifications": {
-    "Address": {
-      "category": "PII",
-      "reason": "Contains street address, city, state, and postal code data which can identify an individual."
+    "cust_id": {
+      "classification": "identifier_column",
+      "reason": "Acts as the unique identifier for each customer record."
     },
-    "BranchID": {
-      "category": "Identifier",
-      "reason": "Serves as an identifier for the corporate branch associated with the customer, and functions as a categorical attribute for grouping."
-    },
-    "CustomerID": {
-      "category": "Identifier",
-      "reason": "Acts as the primary unique identifier for each customer record."
-    },
-    "DateOfBirth": {
-      "category": "Sensitive",
-      "reason": "Contains birth date information, which is sensitive personal data and a component of identity verification."
-    },
-    "Email": {
-      "category": "PII",
-      "reason": "Contains electronic mail addresses which uniquely identify individuals and enable direct communication."
-    },
-    "FirstName": {
-      "category": "PII",
-      "reason": "Represents a person's given name, which is personally identifiable information."
-    },
-    "LastName": {
-      "category": "PII",
-      "reason": "Represents a person's surname, which is personally identifiable information."
-    },
-    "PhoneNumber": {
-      "category": "PII",
-      "reason": "Contains telephone contact details linked directly to an individual."
+    "name": {
+      "classification": "pii_column",
+      "reason": "Contains individual personal names, which can be used to identify a specific person and is flagged for human review as PII."
     }
   }
 }

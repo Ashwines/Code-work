@@ -1,51 +1,25 @@
 {
-  "dataset_business_purpose": "The dataset represents a master repository of customer profile information, containing personal details, contact information, and branch affiliations for an organization with multiple branch locations.",
+  "dataset_business_purpose": "Stores basic customer identification and profile information.",
   "recommended_target_table": "dim_customer",
   "candidate_primary_key": [
-    "CustomerID"
+    "cust_id"
   ],
-  "recommended_partition_column": "BranchID",
+  "recommended_partition_column": null,
   "business_meaning_of_columns": {
-    "Address": "The physical residential or mailing address of the customer.",
-    "BranchID": "The identifier of the primary branch associated with the customer.",
-    "CustomerID": "The unique system-assigned identifier for each customer.",
-    "DateOfBirth": "The birth date of the customer.",
-    "Email": "The electronic mail address of the customer.",
-    "FirstName": "The given name of the customer.",
-    "LastName": "The family name or surname of the customer.",
-    "PhoneNumber": "The contact telephone number of the customer, potentially including extensions or country codes."
+    "cust_id": "Unique identifier for each customer.",
+    "name": "The full name of the customer."
   },
-  "recommended_target_data_types": {
-    "Address": "VARCHAR",
-    "BranchID": "INTEGER",
-    "CustomerID": "INTEGER",
-    "DateOfBirth": "DATE",
-    "Email": "VARCHAR",
-    "FirstName": "VARCHAR",
-    "LastName": "VARCHAR",
-    "PhoneNumber": "VARCHAR"
+  "recommended_target_data_type": {
+    "cust_id": "INTEGER",
+    "name": "VARCHAR"
   },
-  "nullability": {
-    "Address": "NOT NULL",
-    "BranchID": "NOT NULL",
-    "CustomerID": "NOT NULL",
-    "DateOfBirth": "NOT NULL",
-    "Email": "NOT NULL",
-    "FirstName": "NOT NULL",
-    "LastName": "NOT NULL",
-    "PhoneNumber": "NOT NULL"
+  "nullable_or_not": {
+    "cust_id": "NOT NULL",
+    "name": "NOT NULL"
   },
-  "possible_foreign_keys": [
-    {
-      "column": "BranchID",
-      "referenced_table": "dim_branch",
-      "referenced_column": "BranchID",
-      "status": "Uncertain - likely foreign key referencing a branch dimension table based on domain naming conventions, but unconfirmed without schema metadata."
-    }
-  ],
+  "possible_foreign_keys": [],
   "data_quality_concerns": [
-    "Email uniqueness: There are 45,768 unique emails across 50,001 records, indicating potential duplicate accounts, shared email addresses, or test data patterns.",
-    "Phone number standardization: PhoneNumber contains varied formatting styles (e.g., dashes, parentheses, international prefixes, and extension suffixes like 'x6431'), requiring standardization or parsing.",
-    "Date formatting: DateOfBirth is stored as a string and needs explicit conversion to a standard date type with range validation to check for realistic birth dates."
+    "The sample data shows cust_id as a string format inside JSON while the pandas type is int64; ensure proper type casting during ingestion.",
+    "Very small sample size (2 records), making it impossible to detect broader data quality issues such as duplicates, whitespace padding, or special characters in names."
   ]
 }

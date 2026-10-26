@@ -1,33 +1,28 @@
 {
-  "business_domain": "Banking and Financial Services",
-  "dataset_type": "Master Data (HR / Employee)",
+  "business_domain": "Human Resources / Organizational Management",
+  "dataset_type": "Master Data",
   "pii_columns": [
-    "FirstName",
-    "LastName"
+    "name"
   ],
-  "sensitive_columns": [
-    "EmployeeID",
-    "ManagerID"
-  ],
+  "sensitive_columns": [],
   "identifier_columns": [
-    "BranchID",
-    "EmployeeID",
-    "ManagerID"
+    "name"
   ],
   "business_measure_columns": [],
-  "date_columns": [
-    "Hiredate"
-  ],
+  "date_columns": [],
   "categorical_columns": [
-    "Position"
+    "dept"
   ],
   "column_classifications": {
-    "BranchID": "Identifier column representing the unique code for a company branch or location.",
-    "EmployeeID": "Identifier column representing the unique identification number for an employee. It is classified as a sensitive column due to internal identification risk and exhibits missing values requiring data remediation.",
-    "FirstName": "PII column representing the first name of the employee, requiring privacy protection and access control.",
-    "Hiredate": "Date column representing the date the employee was hired, stored as a string and requiring standardization to a proper date format.",
-    "LastName": "PII column representing the last name of the employee, requiring privacy protection and access control.",
-    "ManagerID": "Identifier column representing the EmployeeID of the employee's manager. It establishes a hierarchical relationship and is classified as sensitive with significant missing values (34.57%) likely due to top-level executives lacking managers.",
-    "Position": "Categorical column representing the job title or role of the employee. It contains data quality issues such as typos and inconsistent naming conventions (e.g., 'Manager', 'Manger', 'Manage') requiring data cleansing and normalization."
+    "name": {
+      "classification": "PII / Identifier",
+      "flag_for_human_review": true,
+      "explanation": "The 'name' column contains individual human names, which represents Personally Identifiable Information (PII) and acts as a natural identifier for the records in this small dataset."
+    },
+    "dept": {
+      "classification": "Categorical",
+      "flag_for_human_review": false,
+      "explanation": "The 'dept' column represents organizational departments (e.g., Engineering, Sales), forming a distinct, low-cardinality set of categories suitable for grouping and segmentation."
+    }
   }
 }

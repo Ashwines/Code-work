@@ -1,79 +1,26 @@
 {
-  "business_purpose": "Stores employee roster, organizational hierarchy (managers), branch assignment, hire dates, and job roles for an organization operating across multiple branches.",
-  "target_table": "dim_employee",
+  "dataset_business_purpose": "To store basic organizational information mapping employees to their respective departments.",
+  "recommended_target_table": "dim_employee",
   "candidate_primary_key": [
-    "EmployeeID"
+      "name"
   ],
-  "recommended_partition_column": "BranchID",
-  "columns": [
-    {
-      "column_name": "BranchID",
-      "business_meaning": "Unique identifier for the company branch or location where the employee is assigned.",
-      "target_data_type": "INT",
-      "nullable": false,
-      "null_evidence": "0 nulls out of 3000 rows (0.00% null percentage)."
-    },
-    {
-      "column_name": "EmployeeID",
-      "business_meaning": "Unique identifier for the employee.",
-      "target_data_type": "INT",
-      "nullable": true,
-      "null_evidence": "7 nulls out of 3000 rows (0.23% null percentage)."
-    },
-    {
-      "column_name": "FirstName",
-      "business_meaning": "First name of the employee.",
-      "target_data_type": "VARCHAR(100)",
-      "nullable": false,
-      "null_evidence": "0 nulls out of 3000 rows (0.00% null percentage)."
-    },
-    {
-      "column_name": "Hiredate",
-      "business_meaning": "Date when the employee was hired by the organization.",
-      "target_data_type": "DATE",
-      "nullable": false,
-      "null_evidence": "0 nulls out of 3000 rows (0.00% null percentage)."
-    },
-    {
-      "column_name": "LastName",
-      "business_meaning": "Last name of the employee.",
-      "target_data_type": "VARCHAR(100)",
-      "nullable": false,
-      "null_evidence": "0 nulls out of 3000 rows (0.00% null percentage)."
-    },
-    {
-      "column_name": "ManagerID",
-      "business_meaning": "Identifier of the employee's direct manager, referencing another employee.",
-      "target_data_type": "INT",
-      "nullable": true,
-      "null_evidence": "1037 nulls out of 3000 rows (34.57% null percentage)."
-    },
-    {
-      "column_name": "Position",
-      "business_meaning": "Job title or role of the employee within the organization.",
-      "target_data_type": "VARCHAR(100)",
-      "nullable": false,
-      "null_evidence": "0 nulls out of 3000 rows (0.00% null percentage)."
-    }
-  ],
-  "possible_foreign_keys": [
-    {
-      "column": "ManagerID",
-      "referenced_table": "dim_employee",
-      "referenced_column": "EmployeeID",
-      "notes": "Uncertain recommendation. Represents organizational self-referencing hierarchy, but cannot be fully confirmed without validating referential integrity against EmployeeID."
-    },
-    {
-      "column": "BranchID",
-      "referenced_table": "dim_branch",
-      "referenced_column": "BranchID",
-      "notes": "Uncertain recommendation. Likely references a branch dimension table, but cannot be confirmed from this dataset alone."
-    }
-  ],
+  "recommended_partition_column": null,
+  "business_meaning_of_every_column": {
+    "name": "The full name of the employee.",
+    "dept": "The name of the department where the employee works."
+  },
+  "recommended_target_data_type": {
+    "name": "VARCHAR",
+    "dept": "VARCHAR"
+  },
+  "nullable_or_not": {
+    "name": "NOT NULL",
+    "dept": "NOT NULL"
+  },
+  "possible_foreign_keys": [],
   "data_quality_concerns": [
-    "EmployeeID is stored as float64 and has 7 missing values (0.23%), likely due to trailing decimal points or missing entries in the source system.",
-    "ManagerID has a high null percentage (34.57%), which may be legitimate for top-level executives but could also indicate missing data quality issues.",
-    "Position column contains typos or inconsistent variations such as 'Manager', 'Manger', and 'Manage', indicating a need for data standardization.",
-    "Hiredate is formatted as a string ('DD-MM-YYYY') and will require parsing and conversion to a standard DATE type."
+    "Using employee 'name' as a primary key is risky due to potential name collisions (duplicate names for different employees).",
+    "The dataset lacks a unique employee identifier (surrogate or natural ID).",
+    "Department is stored as a string instead of a normalized department ID or code, which could lead to inconsistent naming/spelling."
   ]
 }

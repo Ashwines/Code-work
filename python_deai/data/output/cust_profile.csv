@@ -1,9 +1,3 @@
 column_name,data_type,null_count,actual_count,unique_count,null_percentage
-Address,str,0,50001,50001,0.0
-BranchID,int64,0,50001,200,0.0
-CustomerID,int64,0,50001,50001,0.0
-DateOfBirth,str,0,50001,22591,0.0
-Email,str,0,50001,45768,0.0
-FirstName,str,0,50001,690,0.0
-LastName,str,0,50001,1000,0.0
-PhoneNumber,str,0,50001,50001,0.0
+cust_id,int64,0,2,2,0.0
+name,str,0,2,2,0.0
